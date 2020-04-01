@@ -78,7 +78,7 @@ spec:
       initContainers:
         - name: copy-config
           imagePullPolicy: Always
-          image: "joaquimbarreto/rpi4-k8s-fah:latest"
+          image: "richstokes20/fah-covid:latest"
           command:
             - "sh"
             - "-c"
@@ -97,3 +97,41 @@ spec:
             # - name: fah-cpu-config
             #   mountPath: /etc/fahclient-config
       # priorityClassName: low-priority-class
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: foldingathome-config
+data:
+  config.xml: |
+    <config>
+      <!--
+        To set your user name, team and passkey just edit the text
+        in quotes below.
+      -->
+
+      <!-- User Information -->
+      <user value=""/> <!-- Enter your user name here -->
+      <team value=""/>         <!-- Your team number -->
+      <passkey value=""/>       <!-- 32 hexadecimal characters if provided -->
+
+      <power value="full"/>     <!-- Throttling this at K8s level -->
+      <gpu value="false"/>      <!-- If true, attempt to autoconfigure GPUs -->
+      <fold-anon value="true"/>
+
+      <!-- Folding Slots
+        No folding slot configuration is necessary.  The client will
+        automaticlaly choose a good configuration for you.  However, here
+        are some examples:
+      
+          <slot id="0" type="CPU"/>
+
+        or
+        
+          <slot id="0" type="CPU"/>
+          <slot id="1" type="GPU"/>
+
+        All slots in a configuration MUST have unique ids.
+      -->
+    </config>
+---
