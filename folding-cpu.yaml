@@ -53,10 +53,10 @@ spec:
           resources:
             limits:
               cpu: 1000m # How much CPU you wish to donate per node
-              memory: 256m
+              memory: 256Mi
             requests:
               cpu: 100m
-              memory: 256m
+              memory: 256Mi
           # Make the container harder to break out of or exploit
           securityContext:
             runAsNonRoot: true
